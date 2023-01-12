@@ -10,6 +10,7 @@ const options = new chrome.Options();
 options.addArguments("--incognito");
 options.addArguments("--no-sandbox");
 options.addArguments("--disable-dev-shm-usage");
+options.addArguments("--headless");
 
 const justinLogin = {
   unid: "u1248103",
