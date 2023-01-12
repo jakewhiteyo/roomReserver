@@ -10,11 +10,38 @@ const options = new chrome.Options();
 options.addArguments("--incognito");
 
 const justinLogin = {
+  unid: "u1248103",
+  password: "Saint$24",
+  email: "u1248103@umail.utah.edu",
+  name: "justin",
+  beginTime: "7:30",
+  endTime: "10:30",
+};
+const jakeLogin = {
   unid: "u1195351",
   password: "$Eedfulbore614",
-  email: "u1195351@umail.utah.edu",
-  name: "justin",
-};
+  email: "u11955351@umail.utah.edu",
+  name: "jake",
+  beginTime: "10:40",
+  endTime: "13:40",
+}
+const joeLogin = {
+  unid: "u1252756",
+  password: "U1280132!",
+  email: "u1252756@umail.utah.edu",
+  name: "joe",
+  beginTime: "13:50",
+  endTime: "16:50",
+}
+
+const kadenLogin = {
+  unid: "u1252756",
+  password: "U1280132!",
+  email: "u1252756@umail.utah.edu",
+  name: "kaden",
+  beginTime: "17:00",
+  endTime: "20:00",
+}
 
 async function startScrape(user, date) {
   const driver = new webdriver.Builder()
@@ -37,13 +64,10 @@ async function startScrape(user, date) {
     `https://scheduling.tools.lib.utah.edu/Web/reservation.php?rid=47&sid=1&rd=${date}&sd=${date}`
   );
 
-  //await driver.findElement(By.id("BeginPeriod")).selectByValue("08:40:00");
-
-  //const begin = await $("#BeginPeriod");
   new Select(driver.findElement(By.id("BeginPeriod"))).selectByValue(
-    "13:40:00"
+    user.beginTime
   );
-  new Select(driver.findElement(By.id("EndPeriod"))).selectByValue("16:40:00");
+  new Select(driver.findElement(By.id("EndPeriod"))).selectByValue(user.endTime);
 
   await driver.findElement(By.name("reservationTitle")).sendKeys("HuddleUp");
   await driver
@@ -65,17 +89,29 @@ async function startScrape(user, date) {
   driver.close();
 }
 
-let date = new Date();
 async function runScraper() {
-  for (let i = 1; i <= 10; i++) {
+    let date = new Date();
     let day = date.getDate() + i;
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
     let currentDate = `${year}-${month}-${day}`;
-    //console.log("currentDate :>> ", currentDate);
 
-    await startScrape(justinLogin, currentDate);
-  }
+    if(process.argv[2] === 'jake')
+    {
+      await startScrape(jakeLogin, currentDate, );
+    }
+    else if(process.argv[2] === 'justin')
+    {
+      await startScrape(justinLogin, currentDate);
+    }
+    else if(process.argv[2] === 'joe')
+    {
+      await startScrape(joeLogin, currentDate);
+    }
+    else
+    {
+      await startScrape(kadenLogin, currentDate);
+    }
 }
 runScraper();
