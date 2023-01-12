@@ -8,8 +8,6 @@ const webdriver = require("selenium-webdriver"),
 
 const options = new chrome.Options();
 options.addArguments("--incognito");
-options.addArguments("--no-sandbox");
-options.addArguments("--disable-dev-shm-usage");
 options.addArguments("--headless");
 
 const justinLogin = {
@@ -38,9 +36,9 @@ const joeLogin = {
 };
 
 const kadenLogin = {
-  unid: "u1252756",
-  password: "U1280132!",
-  email: "u1252756@umail.utah.edu",
+  unid: "u1189630",
+  password: "Seahawks83?",
+  email: "u1189630@umail.utah.edu",
   name: "kaden",
   beginTime: "17:00:00",
   endTime: "20:00:00",
