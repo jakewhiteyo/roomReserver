@@ -8,6 +8,8 @@ const webdriver = require("selenium-webdriver"),
 
 const options = new chrome.Options();
 options.addArguments("--incognito");
+options.addArguments("--no-sandbox");
+options.addArguments("--disable-dev-shm-usage");
 
 const justinLogin = {
   unid: "u1248103",
