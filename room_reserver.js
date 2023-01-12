@@ -14,34 +14,34 @@ const justinLogin = {
   password: "Saint$24",
   email: "u1248103@umail.utah.edu",
   name: "justin",
-  beginTime: "7:30",
-  endTime: "10:30",
+  beginTime: "7:30:00",
+  endTime: "10:30:00",
 };
 const jakeLogin = {
   unid: "u1195351",
   password: "$Eedfulbore614",
   email: "u11955351@umail.utah.edu",
   name: "jake",
-  beginTime: "10:40",
-  endTime: "13:40",
-}
+  beginTime: "10:40:00",
+  endTime: "13:40:00",
+};
 const joeLogin = {
   unid: "u1252756",
   password: "U1280132!",
   email: "u1252756@umail.utah.edu",
   name: "joe",
-  beginTime: "13:50",
-  endTime: "16:50",
-}
+  beginTime: "13:50:00",
+  endTime: "16:50:00",
+};
 
 const kadenLogin = {
   unid: "u1252756",
   password: "U1280132!",
   email: "u1252756@umail.utah.edu",
   name: "kaden",
-  beginTime: "17:00",
-  endTime: "20:00",
-}
+  beginTime: "17:00:00",
+  endTime: "20:00:00",
+};
 
 async function startScrape(user, date) {
   const driver = new webdriver.Builder()
@@ -67,7 +67,9 @@ async function startScrape(user, date) {
   new Select(driver.findElement(By.id("BeginPeriod"))).selectByValue(
     user.beginTime
   );
-  new Select(driver.findElement(By.id("EndPeriod"))).selectByValue(user.endTime);
+  new Select(driver.findElement(By.id("EndPeriod"))).selectByValue(
+    user.endTime
+  );
 
   await driver.findElement(By.name("reservationTitle")).sendKeys("HuddleUp");
   await driver
@@ -90,28 +92,21 @@ async function startScrape(user, date) {
 }
 
 async function runScraper() {
-    let date = new Date();
-    let day = date.getDate() + 10;
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
+  let date = new Date();
+  let day = date.getDate() + 10;
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
 
-    let currentDate = `${year}-${month}-${day}`;
+  let currentDate = `${year}-${month}-${day}`;
 
-    if(process.argv[2] === 'jake')
-    {
-      await startScrape(jakeLogin, currentDate, );
-    }
-    else if(process.argv[2] === 'justin')
-    {
-      await startScrape(justinLogin, currentDate);
-    }
-    else if(process.argv[2] === 'joe')
-    {
-      await startScrape(joeLogin, currentDate);
-    }
-    else
-    {
-      await startScrape(kadenLogin, currentDate);
-    }
+  if (process.argv[2] === "jake") {
+    await startScrape(jakeLogin, currentDate);
+  } else if (process.argv[2] === "justin") {
+    await startScrape(justinLogin, currentDate);
+  } else if (process.argv[2] === "joe") {
+    await startScrape(joeLogin, currentDate);
+  } else {
+    await startScrape(kadenLogin, currentDate);
+  }
 }
 runScraper();
