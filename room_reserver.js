@@ -93,7 +93,8 @@ async function startScrape(user, date) {
 }
 
 async function runScraper() {
-  let date = new Date().toLocaleString('en-us', {timeZone: 'America/Denver'});
+  let date = new Date();
+  date.setHours(date.getHours() - 7);
   let day = date.getDate() + 10;
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
