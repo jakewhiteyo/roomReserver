@@ -31,7 +31,7 @@ const joeLogin = {
   password: "U1280132!",
   email: "u1252756@umail.utah.edu",
   name: "joe",
-  beginTime: "20:50:00", // 20:50:00 utc
+  beginTime: "13:50:00", // 20:50:00 utc
   endTime: "16:50:00",
 };
 const kadenLogin = {
