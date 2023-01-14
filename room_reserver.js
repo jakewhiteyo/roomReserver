@@ -15,7 +15,7 @@ const justinLogin = {
   password: "Saint$24",
   email: "u1248103@umail.utah.edu",
   name: "justin",
-  beginTime: "7:30:00",
+  beginTime: "07:30:00", // 14:30:00 utc
   endTime: "10:30:00",
 };
 const jakeLogin = {
@@ -23,7 +23,7 @@ const jakeLogin = {
   password: "$Eedfulbore614",
   email: "u11955351@umail.utah.edu",
   name: "jake",
-  beginTime: "10:40:00",
+  beginTime: "10:40:00", // 17:40 utc
   endTime: "13:40:00",
 };
 const joeLogin = {
@@ -31,16 +31,15 @@ const joeLogin = {
   password: "U1280132!",
   email: "u1252756@umail.utah.edu",
   name: "joe",
-  beginTime: "13:50:00",
+  beginTime: "20:50:00", // 20:50:00 utc
   endTime: "16:50:00",
 };
-
 const kadenLogin = {
   unid: "u1189630",
   password: "Seahawks83?",
   email: "u1189630@umail.utah.edu",
   name: "kaden",
-  beginTime: "17:00:00",
+  beginTime: "17:00:00", // 00:00:00 utc
   endTime: "20:00:00",
 };
 
