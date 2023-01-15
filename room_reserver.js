@@ -12,7 +12,6 @@ options.addArguments("--headless");
 
 const justinLogin = {
   unid: "u1248103",
-  password: "Saint$24",
   email: "u1248103@umail.utah.edu",
   name: "justin",
   beginTime: "07:30:00", // 14:30:00 utc
@@ -20,7 +19,6 @@ const justinLogin = {
 };
 const jakeLogin = {
   unid: "u1195351",
-  password: "$Eedfulbore614",
   email: "u11955351@umail.utah.edu",
   name: "jake",
   beginTime: "10:40:00", // 17:40 utc
@@ -28,7 +26,6 @@ const jakeLogin = {
 };
 const joeLogin = {
   unid: "u1252756",
-  password: "U1280132!",
   email: "u1252756@umail.utah.edu",
   name: "joe",
   beginTime: "13:50:00", // 20:50:00 utc
@@ -36,7 +33,6 @@ const joeLogin = {
 };
 const kadenLogin = {
   unid: "u1189630",
-  password: "Seahawks83?",
   email: "u1189630@umail.utah.edu",
   name: "kaden",
   beginTime: "17:00:00", // 00:00:00 utc
