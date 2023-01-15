@@ -43,7 +43,7 @@ const kadenLogin = {
   endTime: "20:00:00",
 };
 
-async function startScrape(user, date) {
+async function startScrape(user, date, password) {
   const driver = new webdriver.Builder()
     .forBrowser("chrome")
     .setChromeOptions(options)
@@ -56,7 +56,7 @@ async function startScrape(user, date) {
     .sendKeys("Selenium", Key.RETURN);
 
   await driver.findElement(By.id("username")).sendKeys(user.unid);
-  await driver.findElement(By.id("password")).sendKeys(user.password);
+  await driver.findElement(By.id("password")).sendKeys(password);
 
   await driver.findElement(By.name("submit")).sendKeys("Selenium", Key.RETURN);
 
@@ -100,14 +100,27 @@ async function runScraper() {
 
   let currentDate = `${year}-${month}-${day}`;
 
-  if (process.argv[2] === "jake") {
-    await startScrape(jakeLogin, currentDate);
-  } else if (process.argv[2] === "justin") {
-    await startScrape(justinLogin, currentDate);
-  } else if (process.argv[2] === "joe") {
-    await startScrape(joeLogin, currentDate);
-  } else {
-    await startScrape(kadenLogin, currentDate);
+  if (!process.argv[2] || !process.argv[3]) return;
+
+  const password = process.argv[3];
+
+  let user;
+  switch (process.argv[2]) {
+    case "jake":
+      user = jakeLogin;
+      break;
+    case "justin":
+      user = justinLogin;
+      break;
+    case "joe":
+      user = joeLogin;
+      break;
+    case "kaden":
+      user = kadenLogin;
+      break;
+    default:
+      break;
   }
+  await startScrape(user, currentDate, password);
 }
 runScraper();
