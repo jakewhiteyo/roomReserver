@@ -89,8 +89,10 @@ async function startScrape(user, date, password) {
 
 async function runScraper() {
   let date = new Date();
+  date.setDate(date.getDate() + 10);
   date.setHours(date.getHours() - 7);
-  let day = date.getDate() + 10;
+
+  let day = date.getDate();
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
 
