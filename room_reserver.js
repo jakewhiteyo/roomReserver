@@ -98,6 +98,8 @@ async function runScraper() {
 
   let currentDate = `${year}-${month}-${day}`;
 
+  if (date.getDay() == 6 || date.getDay() == 0) return;
+
   if (!process.argv[2] || !process.argv[3]) return;
 
   const password = process.argv[3];
