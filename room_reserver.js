@@ -40,51 +40,82 @@ const kadenLogin = {
 };
 
 async function startScrape(user, date, password) {
-  const driver = new webdriver.Builder()
-    .forBrowser("chrome")
-    .setChromeOptions(options)
-    .build();
+  try {
+    const driver = new webdriver.Builder()
+      .forBrowser("chrome")
+      .setChromeOptions(options)
+      .build();
 
-  await driver.get("https://lib.utah.edu/spaces/classrooms/study-rooms.php");
+    await driver.get("https://lib.utah.edu/spaces/classrooms/study-rooms.php");
 
-  await driver
-    .findElement(By.xpath("//*[text()='Reserve a study room']"))
-    .sendKeys("Selenium", Key.RETURN);
+    await driver
+      .findElement(By.xpath("//*[text()='Reserve a study room']"))
+      .sendKeys("Selenium", Key.RETURN);
 
-  await driver.findElement(By.id("username")).sendKeys(user.unid);
-  await driver.findElement(By.id("password")).sendKeys(password);
+    await driver.findElement(By.id("username")).sendKeys(user.unid);
+    await driver.findElement(By.id("password")).sendKeys(password);
 
-  await driver.findElement(By.name("submit")).sendKeys("Selenium", Key.RETURN);
+    await driver
+      .findElement(By.name("submit"))
+      .sendKeys("Selenium", Key.RETURN);
 
-  await driver.get(
-    `https://scheduling.tools.lib.utah.edu/Web/reservation.php?rid=47&sid=1&rd=${date}&sd=${date}`
-  );
+    await driver.get(
+      `https://scheduling.tools.lib.utah.edu/Web/reservation.php?rid=47&sid=1&rd=${date}&sd=${date}`
+    );
 
-  new Select(driver.findElement(By.id("BeginPeriod"))).selectByValue(
-    user.beginTime
-  );
-  new Select(driver.findElement(By.id("EndPeriod"))).selectByValue(
-    user.endTime
-  );
+    new Select(driver.findElement(By.id("BeginPeriod"))).selectByValue(
+      user.beginTime
+    );
+    new Select(driver.findElement(By.id("EndPeriod"))).selectByValue(
+      user.endTime
+    );
 
-  await driver.findElement(By.name("reservationTitle")).sendKeys("HuddleUp");
-  await driver
-    .findElement(By.name("reservationDescription"))
-    .sendKeys("Huddling");
-  await driver.findElement(By.id("psiattribute[1]")).sendKeys("4");
-  await driver.findElement(By.id("psiattribute[2]")).sendKeys(user.name);
-  await driver.findElement(By.id("psiattribute[7]")).sendKeys(user.email);
-  await driver.findElement(By.id("psiattribute[4]")).sendKeys("CS");
+    await driver
+      .findElement(By.name("reservationTitle"))
+      .sendKeys(`${user.name} HuddleUp`);
+    await driver
+      .findElement(By.name("reservationDescription"))
+      .sendKeys("Huddling");
+    await driver.findElement(By.id("psiattribute[1]")).sendKeys("4");
+    await driver.findElement(By.id("psiattribute[2]")).sendKeys(user.name);
+    await driver.findElement(By.id("psiattribute[7]")).sendKeys(user.email);
+    await driver.findElement(By.id("psiattribute[4]")).sendKeys("CS");
 
-  await driver
-    .findElement(
-      By.xpath(
-        "/html/body/div[1]/div[1]/div[3]/div/form/div[8]/div[2]/button[1]"
+    await driver
+      .findElement(
+        By.xpath(
+          "/html/body/div[1]/div[1]/div[3]/div/form/div[8]/div[2]/button[1]"
+        )
       )
-    )
-    .sendKeys("Selenium", Key.RETURN);
+      .sendKeys("Selenium", Key.RETURN);
+  } catch (e) {
+    console.log(`failed to reserve ${date} with ${user.name}`);
+  } finally {
+    driver.close();
+    console.log(`${user.name} reserved ${date}`);
+  }
+}
 
-  driver.close();
+async function reserveNext10Days() {
+  for (let i = 0; i <= 10; i++) {
+    let date = new Date();
+    date.setDate(date.getDate() + i);
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    let currentDate = `${year}-${month}-${day}`;
+
+    if (date.getDay() == 6 || date.getDay() == 0) return;
+
+    if (!process.argv[2] || !process.argv[3]) return;
+
+    await startScrape(justinLogin, currentDate, process.argv[2]);
+    await startScrape(jakeLogin, currentDate, process.argv[3]);
+    await startScrape(joeLogin, currentDate, process.argv[4]);
+    await startScrape(kadenLogin, currentDate, process.argv[5]);
+  }
 }
 
 async function runScraper() {
@@ -97,6 +128,7 @@ async function runScraper() {
   let year = date.getFullYear();
 
   let currentDate = `${year}-${month}-${day}`;
+  console.log(date.getDay());
 
   if (date.getDay() == 6 || date.getDay() == 0) return;
 
@@ -124,3 +156,4 @@ async function runScraper() {
   await startScrape(user, currentDate, password);
 }
 runScraper();
+// reserveNext10Days();
