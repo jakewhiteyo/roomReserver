@@ -68,6 +68,8 @@ async function startScrape(user, date, password) {
       .findElement(By.name("submit"))
       .sendKeys("Selenium", Key.RETURN);
 
+    console.log("logged in");
+
     await driver.get(
       `https://scheduling.tools.lib.utah.edu/Web/reservation.php?rid=47&sid=1&rd=${date}&sd=${date}`
     );
@@ -90,6 +92,8 @@ async function startScrape(user, date, password) {
     await driver.findElement(By.id("psiattribute[7]")).sendKeys(user.email);
     await driver.findElement(By.id("psiattribute[4]")).sendKeys("CS");
 
+    console.log("filled form ");
+
     await driver
       .findElement(
         By.xpath(
@@ -97,6 +101,9 @@ async function startScrape(user, date, password) {
         )
       )
       .sendKeys("Selenium", Key.RETURN);
+
+    console.log("submitted");
+
     driver.close();
     console.log(`${user.name} reserved ${date}`);
   } catch (e) {
