@@ -7,6 +7,7 @@ const webdriver = require("selenium-webdriver"),
   Select = webdriver.Select;
 
 const options = new chrome.Options();
+options.addArguments("--no-sandbox");
 options.addArguments("--incognito");
 options.addArguments("--headless");
 
