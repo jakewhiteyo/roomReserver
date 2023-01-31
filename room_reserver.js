@@ -9,6 +9,7 @@ const webdriver = require("selenium-webdriver"),
 const options = new chrome.Options();
 options.addArguments("--no-sandbox");
 options.addArguments("--incognito");
+options.addArguments("--disable-dev-shm-usage");
 options.addArguments("--headless");
 
 const justinLogin = {
@@ -42,16 +43,23 @@ const kadenLogin = {
 
 async function startScrape(user, date, password) {
   try {
+    console.log("starting scrape");
     const driver = new webdriver.Builder()
       .forBrowser("chrome")
       .setChromeOptions(options)
       .build();
 
+    console.log("chrome created");
+
     await driver.get("https://lib.utah.edu/spaces/classrooms/study-rooms.php");
+
+    console.log("hit page");
 
     await driver
       .findElement(By.xpath("//*[text()='Reserve a study room']"))
       .sendKeys("Selenium", Key.RETURN);
+
+    console.log("clicked reserve button");
 
     await driver.findElement(By.id("username")).sendKeys(user.unid);
     await driver.findElement(By.id("password")).sendKeys(password);
