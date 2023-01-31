@@ -88,11 +88,10 @@ async function startScrape(user, date, password) {
         )
       )
       .sendKeys("Selenium", Key.RETURN);
-  } catch (e) {
-    console.log(`failed to reserve ${date} with ${user.name}`);
-  } finally {
     driver.close();
     console.log(`${user.name} reserved ${date}`);
+  } catch (e) {
+    console.log(`failed to reserve ${date} with ${user.name}`);
   }
 }
 
@@ -128,7 +127,6 @@ async function runScraper() {
   let year = date.getFullYear();
 
   let currentDate = `${year}-${month}-${day}`;
-  console.log(date.getDay());
 
   if (date.getDay() == 6 || date.getDay() == 0) return;
 
